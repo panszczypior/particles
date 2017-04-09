@@ -1,5 +1,12 @@
 import Point from './Point'
 
+const calculateDistance = Symbol('calculateDistance');
+const initCanvas = Symbol('initCanvas');
+const initParticles = Symbol('initParticles');
+const animate = Symbol('animate');
+const draw = Symbol('draw');
+const update = Symbol('update');
+
 class Particles {
 
   constructor(element, params) {
@@ -19,7 +26,7 @@ class Particles {
     }
   }
 
-  initCanvas() {
+  [initCanvas]() {
     this.canvas.width = this.params.width;
     this.canvas.height = this.params.height;
     this.ctx = this.canvas.getContext('2d');
@@ -28,33 +35,33 @@ class Particles {
   }
 
   start() {
-    this.initCanvas();
-    this.initPoints();
-    this.animate();
+    this[initCanvas]();
+    this[initParticles]();
+    this[animate]();
   }
 
-  initPoints() {
+  [initParticles]() {
     for (let i = 0; i < this.params.particlesAmount; i += 1) {
       const point = new Point(this.ctx);
       this.particles.push(point);
     }
   }
 
-  animate() {
-    this.draw();
-    window.requestAnimationFrame(this.animate.bind(this));
+  [animate]() {
+    this[draw]();
+    window.requestAnimationFrame(this[animate].bind(this));
   }
 
-  draw() {
+  [draw]() {
     this.ctx.fillStyle = this.params.canvasColor;
     this.ctx.fillRect(0, 0, this.params.width, this.params.height);
     for (let j = 0; j < this.particles.length; j += 1) {
       this.particles[j].draw();
     }
-    this.update();
+    this[update]();
   }
 
-  update() {
+  [update]() {
     for (let i = 0; i < this.particles.length; i += 1) {
       const particle = this.particles[i];
 
@@ -75,12 +82,12 @@ class Particles {
 
       for (let j = i + 1; j < this.particles.length; j += 1) {
         const nextParticle = this.particles[j];
-        this.calculateDistance(particle, nextParticle);
+        this[calculateDistance](particle, nextParticle);
       }
     }
   }
 
-  calculateDistance(point1, point2) {
+  [calculateDistance](point1, point2) {
     const distanceX = point1.x - point2.x;
     const distanceY = point1.y - point2.y;
     const distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
