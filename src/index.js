@@ -5,11 +5,13 @@ class Particles {
   constructor(element, params) {
     this.canvas = element;
     this.ctx = null;
-    this.points = [];
+    this.particles = [];
     this.params = {
       width: window.innerWidth,
       height: window.innerHeight,
-      pointsAmount: 100,
+      particlesAmount: 20,
+      maxDistance: 100,
+      lineColor: 'red',
     };
     if (params) {
       this.params = Object.assign({}, this.params, params);
@@ -30,10 +32,9 @@ class Particles {
   }
 
   initPoints() {
-    for (let i = 0; i < this.params.pointsAmount; i += 1) {
+    for (let i = 0; i < this.params.particlesAmount; i += 1) {
       const point = new Point(this.ctx);
-      this.points.push(point);
-      // point.draw();
+      this.particles.push(point);
     }
   }
 
@@ -44,15 +45,15 @@ class Particles {
 
   draw() {
     this.ctx.clearRect(0, 0, this.params.width, this.params.height);
-    for (let j = 0; j < this.points.length; j += 1) {
-      this.points[j].draw();
+    for (let j = 0; j < this.particles.length; j += 1) {
+      this.particles[j].draw();
     }
     this.update();
   }
 
   update() {
-    for (let i = 0; i < this.points.length; i += 1) {
-      const particle = this.points[i];
+    for (let i = 0; i < this.particles.length; i += 1) {
+      const particle = this.particles[i];
 
       if (particle.x + particle.radius > this.canvas.width) {
         particle.velocityX = -particle.velocityX;
@@ -68,6 +69,26 @@ class Particles {
 
       particle.x += particle.velocityX;
       particle.y += particle.velocityY;
+
+      for (let j = i + 1; j < this.particles.length; j += 1) {
+        const nextParticle = this.particles[j];
+        this.calculateDistance(particle, nextParticle);
+      }
+    }
+  }
+
+  calculateDistance(point1, point2) {
+    const distanceX = point1.x - point2.x;
+    const distanceY = point1.y - point2.y;
+    const distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+    if (distance <= this.params.maxDistance) {
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = this.params.lineColor;
+      this.ctx.moveTo(point1.x, point1.y);
+      this.ctx.lineTo(point2.x, point2.y);
+      this.ctx.stroke();
+      this.ctx.closePath();
     }
   }
 
