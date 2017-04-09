@@ -9,8 +9,9 @@ class Particles {
     this.params = {
       width: window.innerWidth,
       height: window.innerHeight,
+      canvasColor: 'lightgrey',
       particlesAmount: 20,
-      maxDistance: 100,
+      maxDistance: 200,
       lineColor: 'red',
     };
     if (params) {
@@ -22,7 +23,8 @@ class Particles {
     this.canvas.width = this.params.width;
     this.canvas.height = this.params.height;
     this.ctx = this.canvas.getContext('2d');
-    this.ctx.clearRect(0, 0, this.params.width, this.params.height);
+    this.ctx.fillStyle = this.params.canvasColor;
+    this.ctx.fillRect(0, 0, this.params.width, this.params.height);
   }
 
   start() {
@@ -44,7 +46,8 @@ class Particles {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.params.width, this.params.height);
+    this.ctx.fillStyle = this.params.canvasColor;
+    this.ctx.fillRect(0, 0, this.params.width, this.params.height);
     for (let j = 0; j < this.particles.length; j += 1) {
       this.particles[j].draw();
     }
