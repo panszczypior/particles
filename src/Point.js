@@ -12,25 +12,25 @@ class Point {
     velocityX,
     velocityY,
     color,
-    radius) {
+    radius,
+    lineWidth) {
     this.context = context;
     this.x = startX || Math.random() * window.innerWidth;
     this.y = startY || Math.random() * window.innerHeight;
     this.velocityX = velocityX || (Math.random() * 2) - 1;
     this.velocityY = velocityY || (Math.random() * 2) - 1;
     this.color = color || 'blue';
-    this.radius = radius || 3;
+    this.radius = radius || Math.random() * 5;
+    this.lineWidth = lineWidth || 1;
   }
 
   draw() {
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, startAngle, endAngle, false);
-    this.context.lineWidth = 1;
+    this.context.lineWidth = this.lineWidth;
     this.context.strokeStyle = this.color;
     this.context.stroke();
   }
 }
 
 export default Point;
-
-// pointy musza miec randomowy stroke
