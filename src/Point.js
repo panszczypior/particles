@@ -14,8 +14,8 @@ class Point {
     color,
     radius) {
     this.context = context;
-    this.startX = startX || Math.random() * window.innerWidth;
-    this.startY = startY || Math.random() * window.innerHeight;
+    this.x = startX || Math.random() * window.innerWidth;
+    this.y = startY || Math.random() * window.innerHeight;
     this.velocityX = velocityX || (Math.random() * 2) - 1;
     this.velocityY = velocityY || (Math.random() * 2) - 1;
     this.color = color || 'coral';
@@ -25,7 +25,7 @@ class Point {
   draw() {
     this.context.beginPath();
     this.context.fillStyle = this.color;
-    this.context.arc(this.startX, this.startY, this.radius, startAngle, endAngle, false);
+    this.context.arc(this.x, this.y, this.radius, startAngle, endAngle, false);
     this.context.fill();
   }
 }
