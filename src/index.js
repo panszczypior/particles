@@ -9,7 +9,7 @@ class Particles {
     this.params = {
       width: window.innerWidth,
       height: window.innerHeight,
-      pointsAmount: 20,
+      pointsAmount: 100,
     };
     if (params) {
       this.params = Object.assign({}, this.params, params);
@@ -57,15 +57,15 @@ class Particles {
       particle.y += particle.velocityY;
 
       if (particle.x + particle.radius > this.canvas.width) {
-        particle.x = this.canvas.width - particle.x - particle.radius;
+        particle.x = particle.radius;
       } else if (particle.x - particle.radius < 0) {
-        particle.x = particle.radius * 2;
+        particle.x = this.canvas - particle.radius;
       }
 
       if (particle.y + particle.radius > this.canvas.height) {
-        particle.y = this.canvas.height - particle.y - particle.radius;
+        particle.y = particle.radius;
       } else if (particle.y - particle.radius < 0) {
-        particle.y = particle.radius * 2;
+        particle.y = this.canvas - particle.radius;
       }
     }
   }
