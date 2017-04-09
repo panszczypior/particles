@@ -32,3 +32,5 @@ class Point {
 }
 
 export default Point;
+
+// pointy musza miec randomowy stroke

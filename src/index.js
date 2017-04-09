@@ -53,20 +53,21 @@ class Particles {
   update() {
     for (let i = 0; i < this.points.length; i += 1) {
       const particle = this.points[i];
-      particle.x += particle.velocityX;
-      particle.y += particle.velocityY;
 
       if (particle.x + particle.radius > this.canvas.width) {
-        particle.x = particle.radius;
+        particle.velocityX = -particle.velocityX;
       } else if (particle.x - particle.radius < 0) {
-        particle.x = this.canvas - particle.radius;
+        particle.velocityX = -particle.velocityX;
       }
 
       if (particle.y + particle.radius > this.canvas.height) {
-        particle.y = particle.radius;
+        particle.velocityY = -particle.velocityY;
       } else if (particle.y - particle.radius < 0) {
-        particle.y = this.canvas - particle.radius;
+        particle.velocityY = -particle.velocityY;
       }
+
+      particle.x += particle.velocityX;
+      particle.y += particle.velocityY;
     }
   }
 
