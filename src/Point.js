@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle:0 */
-
-const startAngle = 0;
-const endAngle = Math.PI * 2;
+import consts from './helpers/consts';
+import { getRandomStartX, getRandomStartY, getRandomVelocity } from './helpers/helpers';
 
 class Point {
 
@@ -15,18 +14,20 @@ class Point {
     radius,
     lineWidth) {
     this.context = context;
-    this.x = startX || Math.random() * window.innerWidth;
-    this.y = startY || Math.random() * window.innerHeight;
-    this.velocityX = velocityX || (Math.random() * 2) - 1;
-    this.velocityY = velocityY || (Math.random() * 2) - 1;
-    this.color = color || 'blue';
+    this.x = startX || getRandomStartX();
+    this.y = startY || getRandomStartY();
+    this.velocityX = velocityX || getRandomVelocity();
+    this.velocityY = velocityY || getRandomVelocity();
+    this.color = color || consts.color;
     this.radius = radius || Math.random() * 5;
-    this.lineWidth = lineWidth || 1;
+    this.lineWidth = lineWidth || consts.lineWidth;
   }
 
   draw() {
     this.context.beginPath();
-    this.context.arc(this.x, this.y, this.radius, startAngle, endAngle, false);
+    this.context.arc(this.x, this.y, this.radius, consts.startAngle, consts.endAngle, false);
+    this.context.fillStyle = consts.pointFillColor;
+    this.context.fill();
     this.context.lineWidth = this.lineWidth;
     this.context.strokeStyle = this.color;
     this.context.stroke();
@@ -34,3 +35,5 @@ class Point {
 }
 
 export default Point;
+
+// wrzuć to na cdn
