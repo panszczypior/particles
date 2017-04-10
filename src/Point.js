@@ -1,6 +1,8 @@
 /* eslint no-underscore-dangle:0 */
+/* eslint import/no-named-as-default-member:0 */
+
 import consts from './helpers/consts';
-import { getRandomStartX, getRandomStartY, getRandomVelocity } from './helpers/helpers';
+import { getRandomStartX, getRandomStartY, getRandomVelocity, getRadius } from './helpers/helpers';
 
 class Point {
 
@@ -19,7 +21,7 @@ class Point {
     this.velocityX = velocityX || getRandomVelocity();
     this.velocityY = velocityY || getRandomVelocity();
     this.color = color || consts.color;
-    this.radius = radius || Math.random() * 5;
+    this.radius = radius || getRadius();
     this.lineWidth = lineWidth || consts.lineWidth;
   }
 
@@ -31,9 +33,8 @@ class Point {
     this.context.lineWidth = this.lineWidth;
     this.context.strokeStyle = this.color;
     this.context.stroke();
+    this.context.closePath();
   }
 }
 
 export default Point;
-
-// wrzuć to na cdn

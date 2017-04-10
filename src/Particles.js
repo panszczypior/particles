@@ -1,8 +1,8 @@
-// /* eslint no-unused-vars:0 */
+/* eslint no-unused-vars:0 */
+/* eslint import/no-named-as-default-member:0 */
 
 import Point from './Point';
 import consts from './helpers/consts';
-import config from './helpers/config.json';
 
 const calculateDistance = Symbol('calculateDistance');
 const initCanvas = Symbol('initCanvas');

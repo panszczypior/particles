@@ -2,10 +2,10 @@
 
 import Point from './Point';
 import Particles from './Particles';
-
+import config from './helpers/config.json';
 
 // optionally load config as second param to Particles constructor
 
 const canvas = document.querySelector('#particles');
-const test = new Particles(canvas);
-test.start();
+const particlesTest = new Particles(canvas);
+particlesTest.start();
