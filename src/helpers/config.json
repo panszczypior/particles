@@ -1,0 +1,8 @@
+{
+  "width": 800,
+  "height": 800,
+  "canvasColor": "orange",
+  "particlesAmount": 50,
+  "maxDistance": 200,
+  "lineColor": "blue"
+}
